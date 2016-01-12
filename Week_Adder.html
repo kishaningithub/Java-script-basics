@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta charset="US-ASCII">
+<title>Week Adder</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js">
+  </script>
+<script>
+	function FindWeeksController($scope)
+	{
+		var today=new Date();
+		$scope.startingDate=today.getFullYear()+"-"+today.getMonth()+1+"-"+today.getDate();
+		$scope.week20="Week20";
+		$scope.week="";
+	
+		$scope.nextDay=function(year,month,day){
+			  if (day < $scope.daysInMonth(year,month)){
+			        return [year, month, day + 1]
+			  }else{
+			        if (month == 12)
+		           	  return [year + 1, 1, 1]
+		       		 else
+		              return [year, month + 1, 1]
+			    }
+		}
+		
+		$scope.daysInMonth=function(year,month){
+			var days=[31,28,31,30,31,30,31,31,30,31,30,31]
+		    if(month==2 && $scope.isLeapYear(year))
+		        return 29
+		    return days[month-1]
+		}
+		
+		$scope.isLeapYear=function(year){
+			 if (year%400==0) 
+			        return true
+			 else if  (year%100==0)
+		        return false 
+			 else if (year%4==0)
+			        return true
+		     return false
+		}
+		
+		$scope.findWeeks=function(){
+			var inputDate=$scope.startingDate.split("-");
+			inputDate=new Date(inputDate[0],inputDate[1]-1,inputDate[2]);
+			var noOfDays=$scope.week*7;
+			for(var i=0;i<noOfDays;i++){
+				inputDate=$scope.nextDay(inputDate.getFullYear(),inputDate.getMonth()+1,inputDate.getDate());
+				inputDate=new Date(inputDate[0],inputDate[1]-1,inputDate[2]);
+			}
+			$scope.week20=inputDate.getFullYear()+"-"+(inputDate.getMonth()+1)+"-"+inputDate.getDate();
+		}
+		$scope.$watch("week",$scope.findWeeks);
+	}
+</script>
+</head>
+<body ng-controller="FindWeeksController">
+	From Date:<input type=date ng-model="startingDate"/>
+	Week:<input type=text ng-model="week"/>
+	<p ng-bind="week20"></p>
+</body>
+</html>

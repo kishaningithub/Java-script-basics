@@ -1,0 +1,27 @@
+<html>
+<head>
+  <style>
+div { width: 60px; height: 60px; float: left; }
+.first { background-color: #3f3; }
+.second { background-color: #33f;}
+</style>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script>
+  function effect() {
+      $("div.first").delay(800).slideUp(300).fadeIn(400);
+   //   $("div.second").slideUp(300).fadeIn(400);
+    }
+    </script>
+</head>
+<body>
+  
+<p><button>Run</button></p>
+<div class="first"></div>
+<div class="second"></div>
+        
+<script>
+    $("button").click(effect);
+</script>
+
+</body>
+</html>

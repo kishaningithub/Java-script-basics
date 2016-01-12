@@ -1,0 +1,73 @@
+<html>
+ <head>
+   <title> Link bar </title>
+   <style>
+   .search_bar{
+       position:absolute;
+       top:0;
+       right:0px;
+       width:11%;
+       border-color:blue;
+       border-width:8;
+       border-style:inset;
+       border-radius:8;
+       margin:0;
+   }
+   .link{
+       top:0;
+       background-color:black;
+       border-color:blue;
+       width:100px;
+       border-width:8;
+       border-style:inset;
+       text-decoration:none;
+       margin:0;
+   }
+   .link:hover{
+       background-color:orange;
+   }
+   </style>
+   <script src="http://code.jquery.com/jquery-1.6.1.js"></script>
+   <script>
+   var focusin=0;
+   var change_in_width=40;
+   function linkbar_changewidth()
+   {
+       $(".link").each(function()
+       {
+           $(this).animate({"width":"+=1"},800);
+       });
+   }
+
+   function searchbar_changewidth(e)
+   {
+       var index;
+       if(e.data.focusin){
+         $(this).val("").animate({width:"+="+change_in_width},{duration:800,step:linkbar_changewidth()});
+       }
+       else{
+        $(this).animate({width:"11%"},800);
+       }
+   }
+   
+   </script>
+ </head>
+ <body>
+  <div id="link_bar">
+   <a class="link" href=#>0123456</a>
+   <a class="link" href=#>7890123</a>
+   <a class="link" href=#>4567890</a>
+   <a class="link" href=#>1234567</a>
+   <a class="link" href=#>8901234</a>
+   <a class="link" href=#>5678901</a>
+   <a class="link" href=#>2345678</a>
+   <a class="link" href=#>9012345</a>
+   <input type="text" name="search bar" class="search_bar" value="Search...">
+  </div>
+  <script>
+   // Event binding
+   $(".search_bar").focusin({focusin:1},searchbar_changewidth);
+   $(".search_bar").focusout({focusin:0},searchbar_changewidth);
+  </script>
+ </body>
+ </html>
